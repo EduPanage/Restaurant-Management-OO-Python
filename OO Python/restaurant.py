@@ -13,10 +13,35 @@ class Restaurant:
         
         Restaurant.id_counter += 1
     
-    # @classmethod
-    # def updateName(cls):
-        
     
+    @classmethod
+    def updateName(cls):
+        print('\nUpdate Name')
+        
+        try:
+            restID = int(input('\n\nRestaurant ID: '))
+        except ValueError:
+            print('\nError: Invalid ID inserted!\n')
+            time.sleep(2)
+            return
+
+        newName = input('New name: ')
+        
+        found = False
+
+        for restaurant in cls.restaurants:
+            if restaurant.id == restID:
+                restaurant.name = newName
+                found = True
+                print(f'\nSuccess: Name updated to "{newName}"!')
+                time.sleep(2)
+                break 
+            
+        if not found:
+            print('\nError: Restaurant ID not found!\n')
+            time.sleep(2)
+        
+
 
     @staticmethod
     def updateMenu():
@@ -27,15 +52,14 @@ class Restaurant:
         
         try:
             option = int(input('\nYour choice: '))
-            time.sleep(1)
             os.system('cls')
             
             if option == 1:
-                updateName()
+                Restaurant.updateName()
             elif option == 2:
-                updateCategory()
+                Restaurant.updateCategory()
             elif option == 3:
-                updateStatus()
+                Restaurant.updateStatus()
             elif option == 4:
                 Restaurant.menu()
             else:
