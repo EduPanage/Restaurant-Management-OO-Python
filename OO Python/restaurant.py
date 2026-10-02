@@ -12,7 +12,40 @@ class Restaurant:
         self.status = status
         
         Restaurant.id_counter += 1
+    
+    # @classmethod
+    # def updateName(cls):
+        
+    
 
+    @staticmethod
+    def updateMenu():
+        option = 0
+        
+        print('\nUpdate Restaurant\n\nChoose one option bellow:\n\n')
+        print('1. Name\n2. Category\n3. Status\n4. Exit')
+        
+        try:
+            option = int(input('\nYour choice: '))
+            time.sleep(1)
+            os.system('cls')
+            
+            if option == 1:
+                updateName()
+            elif option == 2:
+                updateCategory()
+            elif option == 3:
+                updateStatus()
+            elif option == 4:
+                Restaurant.menu()
+            else:
+                print('\nError: Invalid option!\n')
+                time.sleep(2)
+            
+        except ValueError:
+            print('\nError: Invalid input!\n')
+            time.sleep(2)
+            
         
     @staticmethod
     def addRestaurant():
@@ -68,13 +101,14 @@ class Restaurant:
             print('\nNo restaurants registered!\n')
         
         for restaurant in cls.restaurants:
+            print(f'\n{'ID'.ljust(5)} | {'Restaurant Name'.ljust(25)} | {'Category'.ljust(25)} | {'Status'.ljust(25)}')
             print(restaurant)
         
         time.sleep(3)
         os.system('cls')
             
     def __repr__(self):
-            return f'\nID: {self.id}\nName: {self.name}\nCategory: {self.category}       Status: {self.activeStatus} \n'
+            return f'{str(self.id).ljust(5)} | {self.name.ljust(25)} | {self.category.ljust(25)} | {self.activeStatus.ljust(25)}'
         
     @property
     def activeStatus(self):
@@ -93,19 +127,24 @@ class Restaurant:
                 os.system('cls')
                 print('\n1. Add Restaurant\n2. Remove Restaurant\n3. List Restaurants\n4. Update Restaurant\n5. Exit')
                 option = int(input('\nChoose one option: '))
+                os.system('cls')
 
                 if option == 1:
-                    os.system('cls')
                     Restaurant.addRestaurant()
                 elif option == 2:
-                    os.system('cls')
                     Restaurant.delRestaurant()
                 elif option == 3:
-                    os.system('cls')
                     Restaurant.listRestaurants()
+                elif option == 4:
+                    Restaurant.updateMenu()
+                else:
+                    print('\nError: Invalid option!\n')
+                    time.sleep(2)
+                
                 
             except ValueError:
-                print('\nError: Invalid option!\n')
+                print('\nError: Invalid input!\n')
+                time.sleep(2)
                 
         
     
