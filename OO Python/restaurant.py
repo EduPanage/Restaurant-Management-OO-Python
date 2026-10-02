@@ -125,14 +125,14 @@ class Restaurant:
             print('\nNo restaurants registered!\n')
         
         for restaurant in cls.restaurants:
-            print(f'\n{'ID'.ljust(5)} | {'Restaurant Name'.ljust(25)} | {'Category'.ljust(25)} | {'Status'.ljust(25)}')
+            print(f'\n{'ID'.center(5)} | {'Restaurant Name'.center(20)} | {'Category'.center(20)} | {'Status'.center(15)}')
             print(restaurant)
         
         time.sleep(3)
         os.system('cls')
             
     def __repr__(self):
-            return f'{str(self.id).ljust(5)} | {self.name.ljust(25)} | {self.category.ljust(25)} | {self.activeStatus.ljust(25)}'
+            return f'{str(self.id).center(5)} | {self.name.center(20)} | {self.category.center(20)} | {self.activeStatus.center(15)}'
         
     @property
     def activeStatus(self):
