@@ -16,6 +16,7 @@ class Restaurant:
         
         Restaurant.id_counter += 1
     
+    
     def averageAssess(self):
         if not self.assessment:
             return 0
@@ -25,6 +26,8 @@ class Restaurant:
         average = round(sumAll / quant)
         
         return average
+
+
 
     @classmethod
     def addAssess(cls):
@@ -55,15 +58,15 @@ class Restaurant:
                 print('\nError: Restaurant ID not found!\n')
                 
             time.sleep(2)
+            os.system('cls')
                     
         except ValueError:
             print('\nError: Invalid input!\n')
             time.sleep(2)
+            os.system('cls')
 
-                    
-        except ValueError:
-            print('\nError: Invalid input!\n')
-            time.sleep(2)
+
+
         
     @staticmethod
     def assessmentMenu():
@@ -86,6 +89,8 @@ class Restaurant:
             except ValueError:
                 print('\nError: Invalid input!\n')
                 time.sleep(2)
+
+
 
     @classmethod
     def updateName(cls):
@@ -113,6 +118,8 @@ class Restaurant:
             print('\nError: Restaurant ID not found!\n')
             time.sleep(2)
 
+
+
     @staticmethod
     def updateMenu():
         while True:
@@ -135,6 +142,9 @@ class Restaurant:
                 print('\nError: Invalid input!\n')
                 time.sleep(2)
             
+            
+            
+            
     @staticmethod
     def addRestaurant():
         print('\n--- Add Restaurant ---\n')
@@ -152,6 +162,9 @@ class Restaurant:
         Restaurant.restaurants.append(newRestaurant)
         print('\nRestaurant Added!\n')
         time.sleep(1.5)
+        
+        
+        
         
     @classmethod
     def delRestaurant(cls):
@@ -178,6 +191,9 @@ class Restaurant:
         except ValueError:
             print('\nError: Invalid value!\n')  
             time.sleep(2)
+            
+            
+            
 
     @classmethod
     def listRestaurants(cls):
@@ -193,17 +209,26 @@ class Restaurant:
         
         print('\n')
         input('Press Enter to return to menu...')
+        
+        
+        
             
     def __repr__(self):
-        # Exibe a média calculada ou um traço caso não possua notas ainda
+        
         avg = self.averageAssess()
         avg_display = str(avg) if avg > 0 else '-'
         
         return f'{str(self.id).center(5)} | {self.name.center(20)} | {self.category.center(20)} | {self.activeStatus.center(15)} | {avg_display.center(8)}'
     
+    
+    
+    
     @property
     def activeStatus(self):
         return '✅' if self.status == 'Active' else '❌'
+    
+    
+    
         
     @staticmethod
     def menu():
