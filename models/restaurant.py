@@ -87,9 +87,73 @@ class Restaurant:
             time.sleep(2)
             os.system("cls" if os.name == "nt" else "clear")
             
+            
+    @classmethod
+    def listMenu(cls):
+        print("\n--- Restaurant Menu ---")
+        
+        if not cls.restaurants:
+            print("\nNo restaurants registered!\n")
+            time.sleep(2)
+            return
+
+        try:
+            insertedID = int(input("\nRestaurant ID to view menu: "))
+
+            found_restaurant = next(
+                (r for r in cls.restaurants if r.id == insertedID), None
+            )
+
+            if found_restaurant:
+                os.system("cls" if os.name == "nt" else "clear")
+                print(f"\n--- Restaurant Menu {found_restaurant.name} ---")
+                
+                if not found_restaurant.menuItems:
+                    print("\nThis restaurant does not have any items on the menu yet.\n")
+                else:
+                    for index, item in enumerate(found_restaurant.menuItems, start=1):
+                        print(f"\nItem #{index} {item}")
+                        print("-" * 50)
+                
+                print("\n")
+                input("Press Enter to return to menu...")
+            else:
+                print("\nError: Restaurant ID not found!\n")
+                time.sleep(2)
+
+            os.system("cls" if os.name == "nt" else "clear")
+            
+        except ValueError:
+            print("\nError: Invalid Input! ID must be a number.\n")
+            time.sleep(2)
+            os.system("cls" if os.name == "nt" else "clear")
+            
     @staticmethod
-    def manageRestaurant():
+    def manageMenu():
+        while True:
+            print("\nMenu Management\n\nChoose one option below:\n")
+            print("1. Add Item\n2. Remove Item\n3. List Menu\n4. Exit")
+
+            try:
+                option = int(input("\nYour choice: "))
+                os.system("cls" if os.name == "nt" else "clear")
+
+                if option == 1:
+                    Restaurant.addItem()
+                elif option == 3:
+                    Restaurant.listMenu()
+                elif option == 4:
+                    break
+                else:
+                    print("\nError: Invalid option!\n")
+                    time.sleep(2)
+
+            except ValueError:
+                print("\nError: Invalid input!\n")
+                time.sleep(2)
         pass
+    
+    
 
     def averageAssess(self):
         if not self.assessment:
@@ -201,7 +265,7 @@ class Restaurant:
             
 
     @staticmethod
-    def updateMenu():
+    def manageRestaurant():
         while True:
             print("\nUpdate Restaurant\n\nChoose one option below:\n")
             print("1. Name\n4. Exit")
@@ -333,11 +397,11 @@ class Restaurant:
                 elif option == 3:
                     Restaurant.listRestaurants()
                 elif option == 4:
-                    Restaurant.updateMenu()
+                    Restaurant.manageRestaurant()
                 elif option == 5:
                     Restaurant.assessmentMenu()
                 elif option == 6:
-                    Restaurant.addItem()
+                    Restaurant.manageMenu()
                 elif option == 7:
                     print("\nExiting application... See you soon!")
                 else:
