@@ -87,6 +87,59 @@ class Restaurant:
             time.sleep(2)
             os.system("cls" if os.name == "nt" else "clear")
             
+    @classmethod
+    def removeItem(cls):
+        print("\n--- Remove Item from Restaurant Menu ---")
+        
+        if not cls.restaurants:
+            print("\nNo restaurants registered!\n")
+            time.sleep(2)
+            return
+
+        try:
+            insertedID = int(input("\nRestaurant ID: "))
+
+            found_restaurant = next(
+                (r for r in cls.restaurants if r.id == insertedID), None
+            )
+
+            if found_restaurant:
+                os.system("cls" if os.name == "nt" else "clear")
+                print(f"\n--- Restaurant Menu: {found_restaurant.name} ---")
+                
+                if not found_restaurant.menuItems:
+                    print("This restaurant does not have any items on the menu yet.\n")
+                    time.sleep(2)
+                    return
+                
+                for index, item in enumerate(found_restaurant.menuItems, start=1):
+                    print(f"{index}. {item._name} (R$ {item._price})")
+                
+                item_to_remove = input('\nWhich item do you want to remove (Name): ').strip().lower()
+                
+                found_item = next(
+                    (item for item in found_restaurant.menuItems if item._name.lower() == item_to_remove), 
+                    None
+                )
+                
+                if found_item:
+                    found_restaurant.menuItems.remove(found_item)
+                    print(f'\nSuccess! "{found_item._name}" was removed from the menu.\n')
+                else:
+                    print('\nError: Item name not found on this menu!\n')
+                            
+                time.sleep(2)
+            else:
+                print("\nError: Restaurant ID not found!\n")
+                time.sleep(2)
+
+            os.system("cls" if os.name == "nt" else "clear")
+            
+        except ValueError:
+            print("\nError: Invalid Input! ID must be a number.\n")
+            time.sleep(2)
+            os.system("cls" if os.name == "nt" else "clear")
+            
             
     @classmethod
     def listMenu(cls):
@@ -140,6 +193,8 @@ class Restaurant:
 
                 if option == 1:
                     Restaurant.addItem()
+                elif option == 2:
+                    Restaurant.removeItem()
                 elif option == 3:
                     Restaurant.listMenu()
                 elif option == 4:
